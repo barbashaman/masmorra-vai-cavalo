@@ -14,11 +14,14 @@ public class SorteadorInimigos {
         inimigos.add(new Zumbi());
         inimigos.add(new Esqueleto());
     }
+    private static void reiniciaListaInimigos(){
+        inimigos.clear();
+    }
 
     public static Inimigo sorteiaInimigo(){
         adicionaInimigos();
         Inimigo inimigo = inimigos.get(Sistema.proximoInteiroRandomico(inimigos.size()));
-        inimigos.clear();
+        reiniciaListaInimigos();
         return inimigo;
     }
 }

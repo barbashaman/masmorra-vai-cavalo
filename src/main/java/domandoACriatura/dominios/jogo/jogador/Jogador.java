@@ -26,6 +26,10 @@ public class Jogador {
         this.vida = vida;
     }
 
+    public void recebeDano(int dano){
+        this.setVida(this.getVida() - dano);
+    }
+
     public int getDanoAtaque() {
         return danoAtaque;
     }

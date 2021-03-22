@@ -10,11 +10,17 @@ import static domandoACriatura.dominios.sistema.Sistema.imprimir;
 public class Jogo {
     private Jogador jogador;
     private Inimigo inimigo;
-    private boolean jogoRodando = true;
-    private boolean correr = false;
-    private boolean jogadorFaleceu = false;
-    private String comandoJogador = "";
+    private boolean jogoRodando;
+    private boolean correr;
+    private boolean jogadorFaleceu;
+    private String comandoJogador;
 
+    public Jogo() {
+        jogoRodando = true;
+        correr = false;
+        jogadorFaleceu = false;
+        comandoJogador = "";
+    }
 
     private void sorteiaAtaqueJogador() {
         jogador.setDanoAtaque();
@@ -34,8 +40,8 @@ public class Jogo {
     }
 
     private void calculaResultadoAtaque() {
-        inimigo.setVida(inimigo.getVida() - jogador.getDanoAtaque());
-        jogador.setVida(jogador.getVida() - inimigo.getDanoAtaque());
+        inimigo.recebeDano(jogador.getDanoAtaque());
+        jogador.recebeDano(inimigo.getDanoAtaque());
     }
 
     private void selecionarOpcaoAtacarInimigo() {
@@ -76,11 +82,23 @@ public class Jogo {
         }
     }
 
+    private void setJogadorMorto(){
+        this.jogadorFaleceu = true;
+    }
+
+    private void setFimDeJogo(){
+        this.jogoRodando = false;
+    }
+
+    private void finalizaJogoJogadorMorto(){
+        setJogadorMorto();
+        setFimDeJogo();
+    }
+
     private void validaJogadorDerrotado() {
         if (isJogadorDerrotado()) {
             imprimir("\t> Você levou muito dano e está muito fraco para continuar!");
-            jogadorFaleceu = true;
-            jogoRodando = false;
+            finalizaJogoJogadorMorto();
         }
     }
 
@@ -115,12 +133,16 @@ public class Jogo {
     }
 
     private boolean aventuraContinua() {
-        return inimigo.getVida() > 0 && !correr && !jogadorFaleceu;
+        return !isInimigoDerrotado() && !correr && !jogadorFaleceu;
+    }
+
+    private void correrColinas(){
+        this.correr = true;
     }
 
     private void selecionarOpcaoCorrerColinas() {
         imprimir("\t Você fugiu do " + inimigo.getNome() + "!");
-        correr = true;
+        correrColinas();
     }
 
     private void imprimirSeparador() {
@@ -136,12 +158,14 @@ public class Jogo {
     private void escaparVivo() {
         if (!isJogadorDerrotado()) {
             imprimir("Você escapou vivo da masmorra! Sua vida nunca mais será a mesma!");
+            imprimirSeparador();
         }
     }
 
     private void deixarMasmorra() {
         if (isInimigoDerrotado()) {
             imprimir("Você deixa a masmorra, vitorioso em sua aventura!");
+            imprimirSeparador();
         } else {
             escaparVivo();
         }
@@ -151,6 +175,7 @@ public class Jogo {
     private void imprimirDadosVidaJogadorInimigo() {
         imprimir("\tSeus pontos de vida: " + jogador.getVida(),
                 "\tPontos de vida do " + inimigo.getNome() + ": " + inimigo.getVida());
+        imprimirSeparador();
     }
 
     private void imprimirOpcoesReacaoInimigo() {
@@ -182,15 +207,20 @@ public class Jogo {
 
     private void encontrarInimigo() {
         inimigo = sorteiaInimigo();
+        imprimir("\t# Um " + inimigo.getNome() + " apareceu! #\n");
         while (aventuraContinua()) {
-            imprimir("\t# Um " + inimigo.getNome() + " apareceu! #\n");
             reagirInimigo();
         }
     }
 
+    private void jogadorNaoSaiAventura(){
+        this.correr = false;
+    }
+
     private void continuarBatalhando() {
         imprimir("Você continua a sua aventura!");
-        correr = false;
+        imprimirSeparador();
+        jogadorNaoSaiAventura();
     }
 
     private void imprimirOpcoesContinuarJogo() {
@@ -232,9 +262,13 @@ public class Jogo {
                 "#######################");
     }
 
+    private boolean isJogoRodando(){
+        return this.jogoRodando;
+    }
+
     public void executaJogo() {
         iniciarJogo();
-        while (jogoRodando) {
+        while (isJogoRodando()) {
             encontrarInimigo();
             continuarJogo();
         }
