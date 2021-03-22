@@ -82,15 +82,15 @@ public class Jogo {
         }
     }
 
-    private void setJogadorMorto(){
+    private void setJogadorMorto() {
         this.jogadorFaleceu = true;
     }
 
-    private void setFimDeJogo(){
+    private void setFimDeJogo() {
         this.jogoRodando = false;
     }
 
-    private void finalizaJogoJogadorMorto(){
+    private void finalizaJogoJogadorMorto() {
         setJogadorMorto();
         setFimDeJogo();
     }
@@ -136,7 +136,7 @@ public class Jogo {
         return !isInimigoDerrotado() && !correr && !jogadorFaleceu;
     }
 
-    private void correrColinas(){
+    private void correrColinas() {
         this.correr = true;
     }
 
@@ -213,7 +213,7 @@ public class Jogo {
         }
     }
 
-    private void jogadorNaoSaiAventura(){
+    private void jogadorNaoSaiAventura() {
         this.correr = false;
     }
 
@@ -262,7 +262,7 @@ public class Jogo {
                 "#######################");
     }
 
-    private boolean isJogoRodando(){
+    private boolean isJogoRodando() {
         return this.jogoRodando;
     }
 
