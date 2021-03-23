@@ -20,7 +20,5 @@ public class Sistema {
         return valoresRandomicos.nextInt(maximo);
     }
 
-    public static int proximoNumeroEntreDoisNumeros(int menor, int maior){
-        return valoresRandomicos.nextInt(maior-menor) + menor;
-    }
+
 }

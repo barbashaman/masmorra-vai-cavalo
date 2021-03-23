@@ -3,6 +3,10 @@ package vaiCavalo;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * Jogo da Masmorra Command Line Interface
+ * */
+
 public class MasmorraVaiCavaloCLI {
 
     public static void main(String[] args) {
