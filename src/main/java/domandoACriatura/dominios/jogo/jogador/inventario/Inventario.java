@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Inventario {
-    List<PocaoVida> pocoesVida = new ArrayList<PocaoVida>();
+    List<PocaoVida> pocoesVida = new ArrayList<>();
 
     public void setPocoesVida(int quantidade){
         while(quantidade>0){

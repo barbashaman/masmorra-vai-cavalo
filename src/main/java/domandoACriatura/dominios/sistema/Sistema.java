@@ -20,5 +20,4 @@ public class Sistema {
         return valoresRandomicos.nextInt(maximo);
     }
 
-
 }

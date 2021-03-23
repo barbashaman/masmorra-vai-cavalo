@@ -4,8 +4,8 @@ import domandoACriatura.dominios.jogo.jogador.inventario.Inventario;
 import domandoACriatura.dominios.sistema.Sistema;
 
 public class Jogador {
-    private int vida;
 
+    private int vida;
     private int danoAtaque;
     private int danoAtaqueMaximo;
     private Inventario inventario;
